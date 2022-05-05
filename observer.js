@@ -4,16 +4,17 @@ const multipleElements = document.querySelectorAll('.example');
 const options = {
 	root: null, // when null, root is the viewport
 	threshold: 0, // scale 0 - 1 (% of the element that reaches the root to trigger the event)
-	rootMargin: '-150px', // feel free to try with different values
+	rootMargin: '0px 0px 0px 0px', // feel free to play with different values
 };
 
 const observer = new IntersectionObserver(function (entries, observer) {
 	entries.forEach((entry) => {
 		if (!entry.isIntersecting) {
-			return;
+			return; // this line says: "if it isn't intersecting, ignore"
+		} else {
+			// on this line, add what you want to happen to entry.target when it intersects with the root
+			observer.unobserve(entry.target); // will trigger the event only once for each item. if you want to trigger the event back and forth, remove this line
 		}
-		// on this line, add what you want to happen to entry.target when it intersects with the root
-		observer.unobserve(entry.target); // will trigger the event only once for each item. if you want to trigger the event back and forth, remove this line
 	});
 }, options);
 
